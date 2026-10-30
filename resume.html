@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nivi Chaudhary | Portfoliao</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS (Loaded via CDN for single-file setup) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1d4ed8', // Deep blue matching resume
+                        secondary: '#3b82f6', // Light blue accent
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 1s ease-out',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Advanced CSS */
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor for Pro look */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1d4ed8;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Text Gradient Effect */
+        .text-gradient {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Custom Cursor CSS */
+        .cursor-dot, .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #3b82f6;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        
+        /* Premium Hover Effects */
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            transform: translateY(-5px);
+        }
+        .skill-tag {
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover {
+            background: #1d4ed8;
+            transform: scale(1.05);
+        }
+
+        /* Timeline styling */
+        .timeline-dot {
+            box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.2);
+        }
+
+        /* GSAP Initial Reveal States */
+        .gsap-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+    </style>
+</head>
+<body class="font-inter antialiased selection:bg-primary selection:text-white">
+
+    <!-- Custom Cursor Elements (Hidden on mobile) -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <!-- Animated Background Blobs for Visual Depth -->
+    <div class="fixed inset-0 w-full h-full z-[-1] overflow-hidden">
+        <div class="absolute top-0 -left-4 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-0 -right-4 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Sticky Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-poppins font-bold tracking-wider text-white">NIVI<span class="text-secondary">.</span></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-gray-300 hover:text-secondary transition text-sm font-medium uppercase tracking-wide">About</a>
+                <a href="#skills" class="text-gray-300 hover:text-secondary transition text-sm font-medium uppercase tracking-wide">Skills</a>
+                <a href="#experience" class="text-gray-300 hover:text-secondary transition text-sm font-medium uppercase tracking-wide">Experience</a>
+                <a href="#contact" class="text-gray-300 hover:text-secondary transition text-sm font-medium uppercase tracking-wide">Contact</a>
+            </div>
+            <!-- Mobile menu icon -->
+            <button class="md:hidden text-white focus:outline-none" id="mobile-menu-btn">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 px-6">
+        <div class="max-w-5xl mx-auto text-center z-10">
+            <p class="text-secondary font-medium tracking-[0.2em] uppercase mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">BCA Student & Digital Creator</p>
+            <h1 class="text-5xl md:text-7xl font-poppins font-bold text-white mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.2s;">
+                Hi, I'm <br class="md:hidden" /><span class="text-gradient">Nivi Chaudhary</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
+                Creative and motivated professional with a passion for digital marketing, visual storytelling, and content creation. <br>
+                <span class="text-white font-semibold mt-2 block tracking-widest text-sm">LEARN • CREATE • GROW</span>
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.4s;">
+                <a href="#contact" class="px-8 py-4 bg-primary hover:bg-secondary text-white rounded-full font-medium transition-all duration-300 shadow-lg shadow-blue-500/30 flex items-center gap-2">
+                    Hire Me <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="156031.jpg" download="Nivi_Chaudhary_Resume.jpg" class="px-8 py-4 bg-transparent border border-gray-500 hover:border-secondary hover:text-secondary text-white rounded-full font-medium transition-all duration-300 flex items-center gap-2">
+                    Download CV <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Animated Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-gray-400 hover:text-white transition">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="w-full md:w-1/2 gsap-reveal">
+                    <div class="relative rounded-2xl overflow-hidden glass p-2 hover-glow transition duration-500">
+                        <div class="bg-darker rounded-xl p-8 h-full flex flex-col justify-center border border-gray-800">
+                            <h3 class="text-2xl font-poppins font-bold text-white mb-4">Professional Summary</h3>
+                            <p class="text-gray-400 leading-relaxed text-lg">
+                                Creative and motivated BCA student with an interest in digital marketing, social media management, photography, and content creation. Skilled in visual editing and creative content development, with experience working on personal creative projects. 
+                            </p>
+                            <p class="text-gray-400 leading-relaxed text-lg mt-4">
+                                Eager to contribute creativity, attention to detail, and a willingness to learn in a professional digital and creative environment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 gsap-reveal">
+                    <h2 class="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-2">About Me</h2>
+                    <h3 class="text-4xl font-poppins font-bold text-white mb-6">Bridging Technology & Creativity</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-900/30 flex items-center justify-center flex-shrink-0 text-secondary border border-blue-800">
+                                <i class="fas fa-language text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-white">Languages</h4>
+                                <p class="text-gray-400 mt-1">Fluent in English, Hindi, and Gujarati.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-900/30 flex items-center justify-center flex-shrink-0 text-secondary border border-blue-800">
+                                <i class="fas fa-heart text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-white">Areas of Interest</h4>
+                                <p class="text-gray-400 mt-1">Digital Marketing, Social Media Marketing, Content Creation & Strategy, Instagram Marketing, Photography, Video Editing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Tools Section -->
+    <section id="skills" class="py-24 px-6 bg-dark/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 gsap-reveal">
+                <h2 class="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-2">Capabilities</h2>
+                <h3 class="text-4xl font-poppins font-bold text-white">Skills & Technical Tools</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Core Skills Area -->
+                <div class="gsap-reveal glass p-8 rounded-2xl border border-gray-800 hover-glow transition-all duration-500">
+                    <h4 class="text-2xl font-poppins font-semibold text-white mb-6 flex items-center gap-3">
+                        <i class="fas fa-lightbulb text-secondary"></i> Core Skills
+                    </h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Social Media Content Creation</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Photo Editing & Enhancement</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Video Editing</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Photography & Visual Storytelling</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Creative Design & Development</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Social Media Management</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Content Planning</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Digital Marketing Fundamentals</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-800 text-gray-300 rounded-lg text-sm font-medium cursor-default border border-gray-700">Creative Thinking</span>
+                    </div>
+                </div>
+
+                <!-- Technical Tools Area -->
+                <div class="gsap-reveal glass p-8 rounded-2xl border border-gray-800 hover-glow transition-all duration-500">
+                    <h4 class="text-2xl font-poppins font-semibold text-white mb-6 flex items-center gap-3">
+                        <i class="fas fa-tools text-secondary"></i> Technical Tools
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-secondary transition">
+                            <span class="text-white font-medium">Graphic Design</span>
+                            <span class="text-secondary text-sm">Canva</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-secondary transition">
+                            <span class="text-white font-medium">Photo Editing</span>
+                            <span class="text-secondary text-sm">Photoshop, Lightroom</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-secondary transition">
+                            <span class="text-white font-medium">Video Editing</span>
+                            <span class="text-secondary text-sm">CapCut, VN</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-secondary transition">
+                            <span class="text-white font-medium">Social Media</span>
+                            <span class="text-secondary text-sm">Instagram, Meta Business Suite</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-secondary transition">
+                            <span class="text-white font-medium">Digital Advertising</span>
+                            <span class="text-secondary text-sm">Google Ads</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:border-secondary transition">
+                            <span class="text-white font-medium">Productivity</span>
+                            <span class="text-secondary text-sm">Microsoft Office</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section id="experience" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Work Experience Timeline -->
+            <div class="mb-20">
+                <div class="text-center mb-12 gsap-reveal">
+                    <h2 class="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-2">Career</h2>
+                    <h3 class="text-4xl font-poppins font-bold text-white">Work Experience</h3>
+                </div>
+
+                <div class="relative border-l-2 border-gray-800 ml-3 md:ml-0 md:pl-0">
+                    <div class="mb-10 ml-8 md:ml-10 relative gsap-reveal">
+                        <div class="absolute -left-[41px] md:-left-[45px] top-1 w-5 h-5 bg-darker border-4 border-secondary rounded-full timeline-dot"></div>
+                        <div class="glass p-6 md:p-8 rounded-2xl border border-gray-800 hover-glow transition-all duration-300">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white">LIC / DO Office Work</h4>
+                                    <p class="text-secondary font-medium text-lg">Account Management</p>
+                                </div>
+                                <div class="mt-2 md:mt-0 text-left md:text-right">
+                                    <span class="inline-block px-3 py-1 bg-blue-900/30 text-blue-300 text-sm rounded-full border border-blue-800/50">Apr 2025 - Jun 2026</span>
+                                    <p class="text-gray-500 text-sm mt-1">1 Year 3 Months</p>
+                                </div>
+                            </div>
+                            <ul class="list-disc list-inside text-gray-400 space-y-2 mt-4 marker:text-secondary">
+                                <li>Managed customer accounts and maintained records.</li>
+                                <li>Assisted in daily office operations and documentation.</li>
+                                <li>Handled account-related data and ensured accuracy.</li>
+                                <li>Gained practical experience in communication, coordination, and record management.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Timeline -->
+            <div>
+                <div class="text-center mb-12 gsap-reveal">
+                    <h2 class="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-2">Academic</h2>
+                    <h3 class="text-4xl font-poppins font-bold text-white">Education</h3>
+                </div>
+
+                <div class="relative border-l-2 border-gray-800 ml-3 md:ml-0 md:pl-0">
+                    <!-- College -->
+                    <div class="mb-10 ml-8 md:ml-10 relative gsap-reveal">
+                        <div class="absolute -left-[41px] md:-left-[45px] top-1 w-5 h-5 bg-darker border-4 border-secondary rounded-full timeline-dot"></div>
+                        <div class="glass p-6 rounded-2xl border border-gray-800 hover-glow transition-all duration-300">
+                            <h4 class="text-xl font-bold text-white">Bachelor of Computer Applications (BCA)</h4>
+                            <p class="text-gray-300 mt-1">Shreyarth University</p>
+                            <p class="text-secondary text-sm mt-2 font-medium">Currently pursuing — Semester 5</p>
+                        </div>
+                    </div>
+
+                    <!-- High School -->
+                    <div class="ml-8 md:ml-10 relative gsap-reveal">
+                        <div class="absolute -left-[41px] md:-left-[45px] top-1 w-5 h-5 bg-darker border-4 border-secondary rounded-full timeline-dot"></div>
+                        <div class="glass p-6 rounded-2xl border border-gray-800 hover-glow transition-all duration-300">
+                            <h4 class="text-xl font-bold text-white">Higher Secondary Education (Class 12)</h4>
+                            <p class="text-secondary text-sm mt-2 font-medium">Completed in 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Direct Contact & Resume Download Section -->
+    <section id="contact" class="py-24 px-6 bg-darker relative overflow-hidden">
+        <!-- Background Decorations -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full mix-blend-screen filter blur-[100px] opacity-20"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center mb-16 gsap-reveal">
+                <h2 class="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-2">Get In Touch</h2>
+                <h3 class="text-4xl md:text-5xl font-poppins font-bold text-white mb-6">Let's Work Together</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+                    Based in Ahmedabad, Gujarat. Feel free to reach out for collaborations, projects, or just to say hi!
+                </p>
+            </div>
+
+            <!-- Contact Grid (Clickable) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Phone Box -->
+                <a href="tel:+919624623509" class="gsap-reveal glass p-8 rounded-2xl border border-gray-800 text-center hover:border-secondary hover-glow transition-all duration-300 group">
+                    <div class="w-16 h-16 mx-auto bg-blue-900/30 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-phone-alt text-2xl text-secondary"></i>
+                    </div>
+                    <h4 class="text-white font-semibold text-xl mb-2">Call Me</h4>
+                    <p class="text-gray-400 group-hover:text-white transition-colors duration-300">9624623509</p>
+                </a>
+
+                <!-- Email Box -->
+                <a href="mailto:chaudharynivi88@gmail.com" class="gsap-reveal glass p-8 rounded-2xl border border-gray-800 text-center hover:border-secondary hover-glow transition-all duration-300 group">
+                    <div class="w-16 h-16 mx-auto bg-blue-900/30 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-envelope text-2xl text-secondary"></i>
+                    </div>
+                    <h4 class="text-white font-semibold text-xl mb-2">Email Me</h4>
+                    <p class="text-gray-400 group-hover:text-white transition-colors duration-300 text-sm md:text-base break-all">chaudharynivi88@gmail.com</p>
+                </a>
+
+                <!-- Location Box -->
+                <div class="gsap-reveal glass p-8 rounded-2xl border border-gray-800 text-center hover:border-secondary hover-glow transition-all duration-300 group">
+                    <div class="w-16 h-16 mx-auto bg-blue-900/30 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-map-marker-alt text-2xl text-secondary"></i>
+                    </div>
+                    <h4 class="text-white font-semibold text-xl mb-2">Location</h4>
+                    <p class="text-gray-400 group-hover:text-white transition-colors duration-300">Ahmedabad, Gujarat</p>
+                </div>
+            </div>
+
+            <!-- Resume Download Box (Referencing your actual image file) -->
+            <div class="gsap-reveal glass p-10 rounded-3xl border border-blue-900/50 bg-gradient-to-br from-darker to-slate-900 text-center max-w-2xl mx-auto shadow-[0_0_40px_rgba(29,78,216,0.15)] relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20"></div>
+                <div class="relative z-10">
+                    <i class="fas fa-file-image text-5xl text-secondary mb-6"></i>
+                    <h3 class="text-2xl font-bold text-white mb-4">Want to see my full Resume?</h3>
+                    <p class="text-gray-400 mb-8">Download my complete professional resume directly to your device.</p>
+                    
+                    <!-- LINK ATTACHED TO: 156031.jpg -->
+                    <a href="156031.jpg" download="Nivi_Chaudhary_Resume.jpg" class="inline-flex items-center gap-3 px-8 py-4 bg-primary hover:bg-secondary text-white rounded-full font-bold transition-all duration-300 shadow-lg shadow-blue-500/30 hover:scale-105">
+                        <i class="fas fa-download"></i> Download Resume
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center border-t border-gray-800 bg-darker">
+        <p class="text-gray-500 text-sm">
+            © 2026 Nivi Chaudhary. All Rights Reserved.
+        </p>
+    </footer>
+
+    <!-- JS Libraries for Pro Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Adding slight delay to outline for smooth effect
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Hover effect for cursor
+        const interactiveElements = document.querySelectorAll('a, button, .hover-glow');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
+
+        // Navbar Scroll Effect (Adds background when scrolled)
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg', 'bg-darker/90');
+                nav.classList.remove('py-4');
+                nav.classList.add('py-2');
+            } else {
+                nav.classList.remove('shadow-lg', 'bg-darker/90');
+                nav.classList.add('py-4');
+                nav.classList.remove('py-2');
+            }
+        });
+
+        // GSAP Scroll Animations Setup
+        gsap.registerPlugin(ScrollTrigger);
+
+        const revealElements = document.querySelectorAll('.gsap-reveal');
+        revealElements.forEach((element) => {
+            gsap.to(element, {
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top 85%", // Animation starts when element is 85% down viewport
+                    toggleActions: "play none none reverse"
+                },
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: "power3.out"
+            });
+        });
+    </script>
+</body>
+</html>
